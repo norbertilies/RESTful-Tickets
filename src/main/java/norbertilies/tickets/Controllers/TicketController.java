@@ -33,8 +33,11 @@ public class TicketController {
 
     @RequestMapping(value = "/ticket_details/{id}", method = RequestMethod.GET)
     @ApiMethod(description = "Get details about a specific ticket from the DB.")
-    public Ticket getTicketDetails(@ApiPathParam(name="Ticket ID") @PathVariable long id){
-        System.out.println("Ticket details for "+id);
+    public Ticket getTicketDetails(@ApiPathParam(name="Ticket ID") @PathVariable long id) {
+        System.out.println("Ticket details for " + id);
+        Ticket currentTicket = ticketRepository.findOne(id);
+        if (currentTicket == null)
+            System.out.println("Details: No ticket with ID " + id);
         return ticketRepository.findOne(id);
     }
 
@@ -43,11 +46,14 @@ public class TicketController {
     public List<Ticket> cancelTicket(@ApiPathParam(name="Ticket ID") @PathVariable long id){
         System.out.println("Canceling ticket "+id);
         Ticket currentTicket = ticketRepository.findOne(id);
-        Event currentEvent = currentTicket.getEvent();
-        currentEvent.ticketCanceled(currentTicket);
-        ticketRepository.delete(currentTicket);
-        eventRepository.save(currentEvent);
-
+        if (currentTicket != null) {
+            Event currentEvent = currentTicket.getEvent();
+            currentEvent.ticketCanceled(currentTicket);
+            ticketRepository.delete(currentTicket);
+            eventRepository.save(currentEvent);
+        }
+        else
+            System.out.println("Delete: No ticket with ID "+id);
         return ticketRepository.findAll();
     }
 
