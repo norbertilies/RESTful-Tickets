@@ -1,0 +1,39 @@
+/*C12*/SET SCHEMA PUBLIC
+alter table ticket drop constraint FKfytuhjopeamxbt1cpudy92x5n
+drop table event if exists
+drop table ticket if exists
+drop sequence hibernate_sequence
+create sequence hibernate_sequence start with 1 increment by 1
+create table event (id bigint not null, current_sold integer not null, event_date date, max_capacity integer not null, name varchar(255), ticket_price double not null, primary key (id))
+create table ticket (id bigint not null, date_bought date, event_id bigint, primary key (id))
+alter table ticket add constraint FKfytuhjopeamxbt1cpudy92x5n foreign key (event_id) references event
+INSERT INTO EVENT VALUES(10,0,'2017-09-08',120,'It',25.0E0)
+INSERT INTO EVENT VALUES(11,0,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+INSERT INTO EVENT VALUES(12,0,'2020-12-18',200,'Avatar 2',11.5E0)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 2
+COMMIT
+INSERT INTO TICKET VALUES(20,'2017-05-28',11)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 3
+COMMIT
+DELETE FROM EVENT WHERE ID=11
+INSERT INTO EVENT VALUES(11,1,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+COMMIT
+INSERT INTO TICKET VALUES(21,'2017-05-28',11)
+COMMIT
+DELETE FROM EVENT WHERE ID=11
+INSERT INTO EVENT VALUES(11,2,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+COMMIT
+INSERT INTO TICKET VALUES(22,'2017-05-28',11)
+COMMIT
+DELETE FROM EVENT WHERE ID=11
+INSERT INTO EVENT VALUES(11,3,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+COMMIT
+DELETE FROM EVENT WHERE ID=11
+INSERT INTO EVENT VALUES(11,2,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+DELETE FROM TICKET WHERE ID=21
+COMMIT
+INSERT INTO TICKET VALUES(23,'2017-05-28',11)
+COMMIT
+DELETE FROM EVENT WHERE ID=11
+INSERT INTO EVENT VALUES(11,3,'2017-08-09',3,'Annabelle: Creation',40.0E0)
+COMMIT
