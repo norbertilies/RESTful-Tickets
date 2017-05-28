@@ -44,9 +44,8 @@ public class EventController {
         if (currentEvent.getMaxCapacity()-currentEvent.getCurrentSold() > 0) {
             System.out.println("Buying ticket for event "+ id);
             Ticket newTicket = new Ticket(currentEvent);
-            currentEvent.getListOfTickets().add(newTicket);
             ticketRepository.save(newTicket);
-            currentEvent.ticketSold();
+            currentEvent.ticketSold(newTicket);
             eventRepository.save(currentEvent);
         }
         else{

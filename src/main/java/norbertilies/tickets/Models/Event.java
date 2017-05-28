@@ -77,8 +77,9 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    public void ticketSold(){
+    public void ticketSold(Ticket ticket){
         this.currentSold++;
+        this.listOfTickets.add(ticket);
     }
 
     public void ticketCanceled(Ticket ticket){
