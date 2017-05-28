@@ -12,17 +12,18 @@
 <body ng-app="app" ng-controller="EventsController as vm">
 
 <header>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Events</a>
-                <a class="navbar-brand" href="/tickets" data-ng-click="vm.getAllTickets">Tickets</a>
+                <a class="navbar-brand" href="/">Tickets API</a>
             </div>
-       </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Events</a></li>
+                <li><a href="/tickets">Tickets</a></li>
+            </ul>
+        </div>
     </nav>
 </header>
-
-
 
 <div>
     <div class="row">
